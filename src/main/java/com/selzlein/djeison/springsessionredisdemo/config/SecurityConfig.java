@@ -14,9 +14,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests()
-				.anyRequest().authenticated()
-				.and().formLogin();
+        .authorizeRequests()
+            .anyRequest().authenticated()
+			.antMatchers("/my_login").permitAll()
+            .and()
+        .formLogin()
+            .loginPage("/my_login") // 指定自定义登录页面的路径
+            .permitAll(); // 允许所有用户访问登录页面
+
 	}
 
 	@Autowired
